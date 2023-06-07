@@ -57,18 +57,18 @@ HuffmanNode* build_huffman_tree(const vector<pair<pair<char, int>, int>>& freq_t
 }
 
 // Membuat tabel kode Huffman dari tabel frekuensi karakter
-vector<pair<char, string>> generate_huffman_codes(const vector<pair<pair<char, int>, int>>& freq_table) {
-    HuffmanNode* root = build_huffman_tree(freq_table);
-    vector<pair<char, string>> huffman_codes;
-    generate_huffman_codes_helper(root, "", huffman_codes);
-    return huffman_codes;
-}
-
 void generate_huffman_codes_helper(HuffmanNode* root, string code, vector<pair<char, string>>& huffman_codes) {
     if (!root) return;
     if (root->ch != '$') huffman_codes.push_back({root->ch, code});
     generate_huffman_codes_helper(root->left, code + "0", huffman_codes);
     generate_huffman_codes_helper(root->right, code + "1", huffman_codes);
+}
+
+vector<pair<char, string>> generate_huffman_codes(const vector<pair<pair<char, int>, int>>& freq_table) {
+    HuffmanNode* root = build_huffman_tree(freq_table);
+    vector<pair<char, string>> huffman_codes;
+    generate_huffman_codes_helper(root, "", huffman_codes);
+    return huffman_codes;
 }
 
 // Mengodekan string menggunakan tabel kode Huffman
